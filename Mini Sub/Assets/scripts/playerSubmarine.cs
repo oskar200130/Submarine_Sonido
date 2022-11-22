@@ -17,9 +17,9 @@ public class playerSubmarine : MonoBehaviour
     }
 
     // Update is called once per frame
-    void Update()
+    void OnTriggerStay(Collider other)
     {
-        if (Input.GetKeyDown("q"))
+        if (other.GetComponent<DriveSubmarine>() != null && Input.GetKeyDown("q"))
         {
             driving = !driving;
             transform.Rotate(new Vector3(0, 1, 0), 180);
