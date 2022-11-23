@@ -28,9 +28,9 @@ public class playerController : MonoBehaviour
             velocity.y = -2f;
         }
 
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (Input.GetButton("Jump") /*&& isGrounded*/)
         {
-            velocity.y = Mathf.Sqrt(3 * -2 * Gravedad);
+            velocity.y = Mathf.Sqrt(0.5f * -2 * Gravedad);
         }
 
         float x = Input.GetAxis("Horizontal");
