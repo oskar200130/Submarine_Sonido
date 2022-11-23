@@ -5,7 +5,7 @@ using UnityEngine;
 public class playerSubmarine : MonoBehaviour
 {
     private Transform selfTransform;
-    public GameObject submarine;
+    public GameObject submarine, trapdoor;
     public Vector3 posSit, posUp;
 
     public bool driving = false;
@@ -17,9 +17,9 @@ public class playerSubmarine : MonoBehaviour
     }
 
     // Update is called once per frame
-    void OnTriggerStay(Collider other)
+    void Update()
     {
-        if (other.GetComponent<DriveSubmarine>() != null && Input.GetKeyDown("q"))
+        if (Input.GetKeyDown("q"))
         {
             driving = !driving;
             transform.Rotate(new Vector3(0, 1, 0), 180);
@@ -32,6 +32,14 @@ public class playerSubmarine : MonoBehaviour
                 transform.localPosition = posSit;
             else
                 transform.localPosition = posUp;
+        }
+
+        if (Input.GetKeyDown("l"))
+        {
+            if(trapdoor.transform.rotation.z == 0)
+                trapdoor.transform.Rotate(new Vector3(0, 0, 1), -90);
+            else
+                trapdoor.transform.Rotate(new Vector3(0, 0, 1), 90);
         }
     }
 }
