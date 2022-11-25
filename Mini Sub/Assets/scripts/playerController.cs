@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class playerController : MonoBehaviour
@@ -15,6 +16,8 @@ public class playerController : MonoBehaviour
     public LayerMask floorMask;
     private bool isGrounded;
 
+    public Transform waterSurface;
+
     private void Start()
     {
         cc = transform.gameObject.GetComponent<CharacterController>();
@@ -28,7 +31,7 @@ public class playerController : MonoBehaviour
             velocity.y = -2f;
         }
 
-        if (Input.GetButton("Jump") /*&& isGrounded*/)
+        if (Input.GetButton("Jump") && transform.position.y < waterSurface.position.y)
         {
             velocity.y = Mathf.Sqrt(0.5f * -2 * Gravedad);
         }

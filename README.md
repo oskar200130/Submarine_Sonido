@@ -31,9 +31,11 @@ La ballena
 
 Submarino dispara misiles
 
-Submarino y playr no suben mas de la superficie
+Submarino no sube mas de la superficie
 
 Cambiar fog y otras cosas cuando por encima de la superficie
 
 Mirar la textura de agua sobre la piedra
+
+Ponerle una capa de agua a la superficie para que no se vea pocho
 
