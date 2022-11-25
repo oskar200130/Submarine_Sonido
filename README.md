@@ -7,6 +7,33 @@ https://www.youtube.com/watch?v=cIUN8_FBxas
 https://www.youtube.com/watch?v=EHKrMWGEZPU
 
 
-Salir como buzo si da tiempo.
+SI DA TIEMPO:
 
 Explorar edificios y meterles cosas a los edificios.
+
+Trampilla solo funcione boca abajo
+
+Transición completa de la silla del submarino 
+
+Giro del volante
+
+Meter un radar 
+
+Sistema de vida del submarino 
+
+Roturas y arreglos del submarino
+
+Alarmas del submarino roto
+
+Radio del submarino 
+
+La ballena
+
+Submarino dispara misiles
+
+Submarino y playr no suben mas de la superficie
+
+Cambiar fog y otras cosas cuando por encima de la superficie
+
+Mirar la textura de agua sobre la piedra
+
