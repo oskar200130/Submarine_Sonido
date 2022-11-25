@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Trigger : MonoBehaviour
 {
-
     public enum trigger{volante, trampilla }
 
     public trigger TriggerType;
