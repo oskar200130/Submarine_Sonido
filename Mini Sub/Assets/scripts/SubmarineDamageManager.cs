@@ -9,6 +9,8 @@ public class SubmarineDamageManager : MonoBehaviour
     private float damage;
     private int numBreakingPoints;
     private int numBrokenPoints;
+    private float totalDamage;
+    public const int damageValue = 10;
 
     // Start is called before the first frame update
     void Start()
@@ -21,9 +23,10 @@ public class SubmarineDamageManager : MonoBehaviour
     void recieveDamage(float dmg)
     {
         damage += dmg;
-        while(damage > 10 && numBrokenPoints < numBreakingPoints)
+        totalDamage += dmg;
+        while(damage > damageValue && numBrokenPoints < numBreakingPoints)
         {
-            damage -= 10;
+            damage -= damageValue;
             int rnd = Random.Range(0, numBreakingPoints);
 
             while (isBroken[rnd])
@@ -42,6 +45,7 @@ public class SubmarineDamageManager : MonoBehaviour
     {
         isBroken[id] = false;
         numBrokenPoints--;
+        totalDamage -= damageValue;
     }
 
     // Update is called once per frame
