@@ -15,6 +15,8 @@ public class playerController : MonoBehaviour
     public float groundDistance = 0.4f;
     public LayerMask floorMask;
     private bool isGrounded;
+    public Collider trampDoor;
+    public bool inSubmarine;
 
     public Transform waterSurface;
 
@@ -31,7 +33,7 @@ public class playerController : MonoBehaviour
             velocity.y = -2f;
         }
 
-        if (Input.GetButton("Jump") && transform.position.y < waterSurface.position.y)
+        if (Input.GetButton("Jump") && transform.position.y < waterSurface.position.y && !inSubmarine)
         {
             velocity.y = Mathf.Sqrt(0.5f * -2 * Gravedad);
         }
@@ -46,5 +48,15 @@ public class playerController : MonoBehaviour
         velocity.y += Gravedad * Time.deltaTime;
         cc.Move(velocity * Time.deltaTime);
 
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other == trampDoor) {
+            if (transform.position.y > trampDoor.transform.position.y)
+                inSubmarine = true;
+            else
+                inSubmarine = false;
+        }
     }
 }

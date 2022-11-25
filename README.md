@@ -21,7 +21,9 @@ Meter un radar
 
 Sistema de vida del submarino 
 
-Roturas y arreglos del submarino
+Roturas y arreglos del submarino  {
+    
+}
 
 Alarmas del submarino roto
 
