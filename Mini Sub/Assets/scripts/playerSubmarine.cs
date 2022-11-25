@@ -10,7 +10,7 @@ public class playerSubmarine : MonoBehaviour
 
     public bool driving = false;
 
-    private Collider trigger;
+    private Trigger trigger;
 
     // Start is called before the first frame update
     void Start()
@@ -35,11 +35,27 @@ public class playerSubmarine : MonoBehaviour
 
     private void Update()
     {
-        if (trigger != null && Input.GetKeyDown("q"))
+        if (trigger != null && Input.GetKeyDown(KeyCode.L))
         {
-            changeSittin();
+            switch (trigger.TriggerType)
+            {
+                case Trigger.trigger.volante:
+                    changeSittin();
+                    break;
+                case Trigger.trigger.trampilla:
+                    if (trapdoor.transform.rotation.z == 0)
+                    {
+                        trapdoor.transform.Rotate(new Vector3(0, 0, 1), -90);
+                        trapdoor.GetComponentInChildren<BoxCollider>().enabled = false;
+                    }
+                    else
+                    {
+                        trapdoor.transform.Rotate(new Vector3(0, 0, 1), 90);
+                        trapdoor.GetComponentInChildren<BoxCollider>().enabled = true;
+                    }
+                    break;
+            }
         }
-
     }
 
     // Update is called once per frame
@@ -47,15 +63,7 @@ public class playerSubmarine : MonoBehaviour
     {
         if (other.GetComponent<Trigger>() != null)
         {
-            trigger = other;
-        }
-
-        if (Input.GetKeyDown("l"))
-        {
-            if(trapdoor.transform.rotation.z == 0)
-                trapdoor.transform.Rotate(new Vector3(0, 0, 1), -90);
-            else
-                trapdoor.transform.Rotate(new Vector3(0, 0, 1), 90);
+            trigger = other.GetComponent<Trigger>();
         }
     }
 
