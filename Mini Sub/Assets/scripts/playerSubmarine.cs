@@ -45,7 +45,7 @@ public class playerSubmarine : MonoBehaviour
     // Update is called once per frame
     void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<DriveSubmarine>() != null)
+        if (other.GetComponent<Trigger>() != null)
         {
             trigger = other;
         }
@@ -61,7 +61,7 @@ public class playerSubmarine : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        if (other.GetComponent<DriveSubmarine>() != null)
+        if (other.GetComponent<Trigger>() != null)
         {
             trigger = null;
         }
