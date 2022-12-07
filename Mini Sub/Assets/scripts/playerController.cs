@@ -20,9 +20,18 @@ public class playerController : MonoBehaviour
 
     public Transform waterSurface;
 
+    private FMOD.Studio.EventInstance swimInstance;
+    public FMODUnity.EventReference swimEvent;
+
+    private FMOD.Studio.EventInstance walkInstance;
+    public FMODUnity.EventReference walkEvent;
+
     private void Start()
     {
         cc = transform.gameObject.GetComponent<CharacterController>();
+        swimInstance = FMODUnity.RuntimeManager.CreateInstance(swimEvent);
+        walkInstance = FMODUnity.RuntimeManager.CreateInstance(walkEvent);
+        walkInstance.start();
     }
     void Update()
     {
@@ -44,19 +53,30 @@ public class playerController : MonoBehaviour
         Vector3 move = transform.right * x + transform.forward * z;
         cc.Move(move * Velocidad * Time.deltaTime);
 
+        if (inSubmarine && (x != 0 || z != 0))
+            walkInstance.setParameterByName("Walk", 1);
+        else
+            walkInstance.setParameterByName("Walk", 0);          
 
         velocity.y += Gravedad * Time.deltaTime;
         cc.Move(velocity * Time.deltaTime);
-
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other == trampDoor) {
             if (transform.position.y > trampDoor.transform.position.y)
+            {
+                //swimEvent.Stop();
+                swimInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
                 inSubmarine = true;
+            }
             else
+            {
+                FMODUnity.RuntimeManager.PlayOneShot("event:/Jump_Water");
+                swimInstance.start();
                 inSubmarine = false;
+            }
         }
     }
 }

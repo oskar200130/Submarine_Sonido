@@ -9,18 +9,29 @@ public class SubmarineDamageManager : MonoBehaviour
     private float damage;
     private int numBreakingPoints;
     private int numBrokenPoints;
-    private float totalDamage;
+    [SerializeField][Range(0f, 100f)] float totalDamage;
     public const int damageValue = 10;
+
+    //Luces de alarma
+    public GameObject[] lights;
+    public Material lightMat;
+    private bool alert = false;
+
+    private FMOD.Studio.EventInstance instance;
+    public FMODUnity.EventReference fmodEvent;
 
     // Start is called before the first frame update
     void Start()
     {
+        instance = FMODUnity.RuntimeManager.CreateInstance(fmodEvent);
+        instance.start();
+
         numBreakingPoints = breakingPoints.Length;
         isBroken = new bool[numBreakingPoints];
         damage = 0;
     }
 
-    void recieveDamage(float dmg)
+    public void recieveDamage(float dmg)
     {
         damage += dmg;
         totalDamage += dmg;
@@ -41,16 +52,50 @@ public class SubmarineDamageManager : MonoBehaviour
       
     }
 
-    void breakingPointRepaired(int id)
+    public void breakingPointRepaired(int id)
     {
         isBroken[id] = false;
         numBrokenPoints--;
         totalDamage -= damageValue;
+        if (!alert && totalDamage > 40)
+        {
+            alert = true;
+            for (int i = 0; i < lights.Length; i++)
+            {
+                lights[i].GetComponent<Light>().color = Color.black;
+            }
+        }
     }
+
+    public float getTotalDamg() { return totalDamage; }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.G))        //QUITAR TODO IMPUT CON G(SOLO PARA DEBUG)
+        {
+            alert = !alert;
+            totalDamage = 50;
+        }
+        if(alert)
+        {
+            Color lerpedColor = Color.Lerp(Color.black, Color.red, Mathf.PingPong(Time.time, 1));
+            for (int i = 0; i < lights.Length; i++)
+            {
+                lights[i].GetComponent<Light>().color = lerpedColor;
+                lights[i].GetComponent<Light>().intensity = 10;
+            }
+            lightMat.color = lerpedColor;
+            lightMat.SetColor("_EmissionColor", lerpedColor);
+        }
+
+        instance.setParameterByName("Damage", totalDamage);
+        instance.setParameterByName("ActDamage", totalDamage);
+    }
+
+    private void OnDestroy()
+    {
+        instance.release();
+        lightMat.SetColor("_EmissionColor", Color.white);
     }
 }
