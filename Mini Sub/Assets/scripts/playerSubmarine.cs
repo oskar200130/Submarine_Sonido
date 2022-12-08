@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class playerSubmarine : MonoBehaviour
 {
-    private Transform selfTransform;
     public GameObject submarine, trapdoor;
     public Vector3 posSit, posUp;
 
@@ -15,7 +14,7 @@ public class playerSubmarine : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        selfTransform = gameObject.GetComponent<Transform>();
+
     }
 
     private void changeSittin()
