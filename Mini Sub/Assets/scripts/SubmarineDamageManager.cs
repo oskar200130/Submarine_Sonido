@@ -99,5 +99,6 @@ public class SubmarineDamageManager : MonoBehaviour
     {
         instance.release();
         lightMat.SetColor("_EmissionColor", Color.white);
+        lightMat.color = Color.white;
     }
 }

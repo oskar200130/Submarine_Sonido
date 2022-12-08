@@ -41,6 +41,9 @@
 		</relationship>
 	</object>
 	<object class="MasterTrack" id="{24bea431-7f59-4212-b855-5373b6c60444}">
+		<relationship name="automationTracks">
+			<destination>{d9c30ee6-4e6e-41de-959c-5157768d493d}</destination>
+		</relationship>
 		<relationship name="modules">
 			<destination>{a1f67e44-f715-4971-9b3f-0a782302e2ba}</destination>
 		</relationship>
@@ -82,6 +85,11 @@
 			<destination>{af129947-d672-427a-847a-3d7b35c1251e}</destination>
 		</relationship>
 	</object>
+	<object class="AutomationTrack" id="{d9c30ee6-4e6e-41de-959c-5157768d493d}">
+		<relationship name="automator">
+			<destination>{3e623467-442a-4dc5-b680-22ffd2d89423}</destination>
+		</relationship>
+	</object>
 	<object class="MultiSound" id="{a1f67e44-f715-4971-9b3f-0a782302e2ba}">
 		<relationship name="sounds">
 			<destination>{6fcce049-d3b7-4374-81a0-37f9e24091ea}</destination>
@@ -99,7 +107,84 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{0c778ff7-0357-4c5b-9014-58036e5afb8b}" />
-	<object class="MultiSound" id="{6fcce049-d3b7-4374-81a0-37f9e24091ea}" />
+	<object class="MultiSound" id="{6fcce049-d3b7-4374-81a0-37f9e24091ea}">
+		<property name="pitch">
+			<value>1.60000002</value>
+		</property>
+		<relationship name="automators">
+			<destination>{3e623467-442a-4dc5-b680-22ffd2d89423}</destination>
+		</relationship>
+		<relationship name="modulators">
+			<destination>{c8c8e9a9-aaae-49d2-8e5a-526f533ca1c1}</destination>
+			<destination>{f16f60d9-1733-4ef8-8264-4e0a9e3ba6b7}</destination>
+		</relationship>
+		<relationship name="sounds">
+			<destination>{1c195a2c-f99c-4e1b-89b2-e8082e829120}</destination>
+			<destination>{08a0572f-914c-453f-b91e-2dd84d77b429}</destination>
+		</relationship>
+	</object>
 	<object class="MixerBusFader" id="{dfacbdb7-061e-4080-b9c3-0ae4a1a4ea25}" />
 	<object class="MixerBusFader" id="{73a35d76-daa2-4f25-b5e9-881e16a6e59a}" />
+	<object class="Automator" id="{3e623467-442a-4dc5-b680-22ffd2d89423}">
+		<property name="nameOfPropertyBeingAutomated">
+			<value>volume</value>
+		</property>
+		<relationship name="automationCurves">
+			<destination>{d3fac911-de7d-4a72-8779-0f9f665a2202}</destination>
+		</relationship>
+	</object>
+	<object class="RandomizerModulator" id="{c8c8e9a9-aaae-49d2-8e5a-526f533ca1c1}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>volume</value>
+		</property>
+		<property name="amount">
+			<value>9.5</value>
+		</property>
+	</object>
+	<object class="RandomizerModulator" id="{f16f60d9-1733-4ef8-8264-4e0a9e3ba6b7}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>pitch</value>
+		</property>
+		<property name="amount">
+			<value>6</value>
+		</property>
+	</object>
+	<object class="SingleSound" id="{1c195a2c-f99c-4e1b-89b2-e8082e829120}">
+		<relationship name="audioFile">
+			<destination>{96492586-ec35-4162-91cd-729edb754474}</destination>
+		</relationship>
+	</object>
+	<object class="SingleSound" id="{08a0572f-914c-453f-b91e-2dd84d77b429}">
+		<relationship name="audioFile">
+			<destination>{6e5f35a7-396b-4bcf-b750-3c9d9497c3a5}</destination>
+		</relationship>
+	</object>
+	<object class="AutomationCurve" id="{d3fac911-de7d-4a72-8779-0f9f665a2202}">
+		<relationship name="parameter">
+			<destination>{4d088ea4-5f59-4273-b949-70d1ba4f2096}</destination>
+		</relationship>
+		<relationship name="automationPoints">
+			<destination>{fea24b4a-74c9-4520-af08-c96bdb0c23a0}</destination>
+			<destination>{129f4761-8756-4d14-a5d3-d27639956adc}</destination>
+		</relationship>
+	</object>
+	<object class="AutomationPoint" id="{fea24b4a-74c9-4520-af08-c96bdb0c23a0}">
+		<property name="position">
+			<value>0.042372881355932202</value>
+		</property>
+		<property name="value">
+			<value>-10</value>
+		</property>
+		<property name="curveShape">
+			<value>-0.426869124</value>
+		</property>
+	</object>
+	<object class="AutomationPoint" id="{129f4761-8756-4d14-a5d3-d27639956adc}">
+		<property name="position">
+			<value>1.9000000000000001</value>
+		</property>
+		<property name="value">
+			<value>0</value>
+		</property>
+	</object>
 </objects>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{96492586-ec35-4162-91cd-729edb754474}">
+		<property name="assetPath">
+			<value>OutWater/emergeWater2.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>1</value>
+		</property>
+		<property name="length">
+			<value>1.6525850340136055</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{d58fda62-d957-4f55-8704-fb42078240ea}</destination>
+		</relationship>
+	</object>
+</objects>

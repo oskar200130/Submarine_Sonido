@@ -5,7 +5,7 @@
 			<value>Walk</value>
 		</property>
 		<property name="outputFormat">
-			<value>0</value>
+			<value>1</value>
 		</property>
 		<relationship name="folder">
 			<destination>{cf5a7341-9c02-4f2e-a36a-01224066e2e3}</destination>

@@ -52,7 +52,7 @@ public class playerController : MonoBehaviour
         Vector3 move = transform.right * x + transform.forward * z;
         cc.Move(move * Velocidad * Time.deltaTime);
 
-        if (inSubmarine && (x != 0 || z != 0))
+        if (inSubmarine && isGrounded && (x != 0 || z != 0))
             walkInstance.setParameterByName("Walk", 1);
         else
             walkInstance.setParameterByName("Walk", 0);
@@ -68,15 +68,16 @@ public class playerController : MonoBehaviour
         if (tr == null || tr.TriggerType != Trigger.trigger.trampilla)
             return;
 
-        if (transform.position.y > other.transform.position.y)
+        if (transform.position.y + transform.GetComponent<CharacterController>().height / 3 > other.transform.position.y)
         {
             if (!inSubmarine)
             {
+                FMODUnity.RuntimeManager.PlayOneShot("event:/Out_Water");
                 swimInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
                 inSubmarine = true;
             }
         }
-        else
+        else if (transform.position.y - transform.GetComponent<CharacterController>().height / 3 < other.transform.position.y)
         {
             if (inSubmarine)
             {
@@ -86,5 +87,10 @@ public class playerController : MonoBehaviour
             }
         }
 
+    }
+
+    private void OnDisable()
+    {
+        walkInstance.setParameterByName("Walk", 0);
     }
 }
