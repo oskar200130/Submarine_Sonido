@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="ParameterPreset" id="{64a3c759-9108-4d81-9bfc-0ed324c52778}">
+		<property name="name">
+			<value>ActDamage</value>
+		</property>
+		<relationship name="folder">
+			<destination>{fa55cba8-fa75-4fb3-b48e-1d7c45976050}</destination>
+		</relationship>
+		<relationship name="parameter">
+			<destination>{601dd700-efd0-417c-9976-9f35050115d2}</destination>
+		</relationship>
+	</object>
+	<object class="GameParameter" id="{601dd700-efd0-417c-9976-9f35050115d2}">
+		<property name="maximum">
+			<value>100</value>
+		</property>
+		<property name="initialValue">
+			<value>0</value>
+		</property>
+	</object>
+</objects>

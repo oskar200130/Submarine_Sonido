@@ -1,3 +1,4 @@
+using FMODUnity;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -23,7 +24,8 @@ public class SubmarineDamageManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        instance = FMODUnity.RuntimeManager.CreateInstance(fmodEvent);
+        instance = RuntimeManager.CreateInstance(fmodEvent);
+        RuntimeManager.AttachInstanceToGameObject(instance, lights[1].transform);
         instance.start();
 
         numBreakingPoints = breakingPoints.Length;
