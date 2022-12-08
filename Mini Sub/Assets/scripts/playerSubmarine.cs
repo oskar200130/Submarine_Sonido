@@ -42,6 +42,7 @@ public class playerSubmarine : MonoBehaviour
                     changeSittin();
                     break;
                 case Trigger.trigger.trampilla:
+                    FMODUnity.RuntimeManager.PlayOneShot("event:/Trapdoor");
                     if (trapdoor.transform.rotation.z == 0)
                     {
                         trapdoor.transform.Rotate(new Vector3(0, 0, 1), -90);
