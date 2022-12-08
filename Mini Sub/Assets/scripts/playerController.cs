@@ -15,7 +15,6 @@ public class playerController : MonoBehaviour
     public float groundDistance = 0.4f;
     public LayerMask floorMask;
     private bool isGrounded;
-    public Collider trampDoor;
     public bool inSubmarine;
 
     public Transform waterSurface;
@@ -56,27 +55,36 @@ public class playerController : MonoBehaviour
         if (inSubmarine && (x != 0 || z != 0))
             walkInstance.setParameterByName("Walk", 1);
         else
-            walkInstance.setParameterByName("Walk", 0);          
+            walkInstance.setParameterByName("Walk", 0);
 
         velocity.y += Gravedad * Time.deltaTime;
         cc.Move(velocity * Time.deltaTime);
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerStay(Collider other)
     {
-        if (other == trampDoor) {
-            if (transform.position.y > trampDoor.transform.position.y)
+        Trigger tr = other.GetComponent<Trigger>();
+
+        if (tr == null || tr.TriggerType != Trigger.trigger.trampilla)
+            return;
+
+        if (transform.position.y > other.transform.position.y)
+        {
+            if (!inSubmarine)
             {
-                //swimEvent.Stop();
                 swimInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
                 inSubmarine = true;
             }
-            else
+        }
+        else
+        {
+            if (inSubmarine)
             {
                 FMODUnity.RuntimeManager.PlayOneShot("event:/Jump_Water");
                 swimInstance.start();
                 inSubmarine = false;
             }
         }
+
     }
 }
