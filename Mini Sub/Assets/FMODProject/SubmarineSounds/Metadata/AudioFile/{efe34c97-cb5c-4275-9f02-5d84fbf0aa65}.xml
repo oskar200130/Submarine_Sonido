@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<objects serializationModel="Studio.02.02.00">
+	<object class="AudioFile" id="{efe34c97-cb5c-4275-9f02-5d84fbf0aa65}">
+		<property name="assetPath">
+			<value>Engine/accelerating4.wav</value>
+		</property>
+		<property name="frequencyInKHz">
+			<value>44.0999985</value>
+		</property>
+		<property name="channelCount">
+			<value>2</value>
+		</property>
+		<property name="length">
+			<value>1.9781179138321996</value>
+		</property>
+		<relationship name="masterAssetFolder">
+			<destination>{d58fda62-d957-4f55-8704-fb42078240ea}</destination>
+		</relationship>
+	</object>
+</objects>

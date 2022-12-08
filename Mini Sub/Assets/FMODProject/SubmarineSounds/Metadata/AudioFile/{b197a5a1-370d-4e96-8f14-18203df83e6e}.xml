@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.02.00">
-	<object class="AudioFile" id="{e43e29e8-7030-4a66-9185-afd90f18a784}">
-		<property name="assetPath" />
+	<object class="AudioFile" id="{b197a5a1-370d-4e96-8f14-18203df83e6e}">
+		<property name="assetPath">
+			<value>OpenTrapdoor/trapdoorClick.wav</value>
+		</property>
 		<property name="frequencyInKHz">
 			<value>44.0999985</value>
 		</property>
 		<property name="channelCount">
-			<value>1</value>
+			<value>2</value>
 		</property>
 		<property name="length">
-			<value>1.6525850340136055</value>
+			<value>0.43004535147392292</value>
 		</property>
 		<relationship name="masterAssetFolder">
 			<destination>{d58fda62-d957-4f55-8704-fb42078240ea}</destination>

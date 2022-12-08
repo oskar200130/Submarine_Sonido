@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <objects serializationModel="Studio.02.02.00">
-	<object class="ParameterPreset" id="{1db47f1b-ffbb-4b1f-9b16-f349241e5202}">
+	<object class="ParameterPreset" id="{eef5837f-84d8-4962-a6e1-5f08e7bd0cc6}">
 		<property name="name">
-			<value>SubVelocity</value>
+			<value>whales</value>
 		</property>
 		<relationship name="folder">
 			<destination>{fa55cba8-fa75-4fb3-b48e-1d7c45976050}</destination>
 		</relationship>
 		<relationship name="parameter">
-			<destination>{7b8c4e93-a28e-463c-8e66-ca137e19d6af}</destination>
+			<destination>{d2370f33-6473-433d-8844-1668e001d96a}</destination>
 		</relationship>
 	</object>
-	<object class="GameParameter" id="{7b8c4e93-a28e-463c-8e66-ca137e19d6af}">
+	<object class="GameParameter" id="{d2370f33-6473-433d-8844-1668e001d96a}">
 		<property name="maximum">
-			<value>10</value>
+			<value>24</value>
 		</property>
 		<property name="initialValue">
 			<value>0</value>
