@@ -16,6 +16,7 @@ public class playerController : MonoBehaviour
     public LayerMask floorMask;
     private bool isGrounded;
     public bool inSubmarine;
+    public LightingManager lM;
 
     public Transform waterSurface;
 
@@ -59,6 +60,8 @@ public class playerController : MonoBehaviour
 
         velocity.y += Gravedad * Time.deltaTime;
         cc.Move(velocity * Time.deltaTime);
+
+        swimInstance.setParameterByName("whales", lM.getTimeOfDay());
     }
 
     private void OnTriggerStay(Collider other)
