@@ -10,6 +10,8 @@ public class playerSubmarine : MonoBehaviour
     public bool driving = false;
 
     private Trigger trigger;
+    private bool trapdoorLerping = false;
+    private int degrees = 0;
 
     // Start is called before the first frame update
     void Start()
@@ -34,7 +36,7 @@ public class playerSubmarine : MonoBehaviour
 
     private void Update()
     {
-        if (trigger != null && Input.GetKeyDown(KeyCode.L))
+        if (trigger != null && !trapdoorLerping && Input.GetKeyDown(KeyCode.L))
         {
             switch (trigger.TriggerType)
             {
@@ -43,17 +45,30 @@ public class playerSubmarine : MonoBehaviour
                     break;
                 case Trigger.trigger.trampilla:
                     FMODUnity.RuntimeManager.PlayOneShot("event:/Trapdoor");
-                    if (trapdoor.transform.rotation.z == 0)
-                    {
-                        trapdoor.transform.Rotate(new Vector3(0, 0, 1), -90);
-                        trapdoor.GetComponentInChildren<BoxCollider>().enabled = false;
-                    }
-                    else
-                    {
-                        trapdoor.transform.Rotate(new Vector3(0, 0, 1), 90);
-                        trapdoor.GetComponentInChildren<BoxCollider>().enabled = true;
-                    }
+                    if (trapdoor.transform.rotation.z == 0)                    
+                        degrees = -90;                                        
+                    else                    
+                        degrees = 0;
+                    
+                    trapdoorLerping = true;
                     break;
+            }
+        }
+
+        if (trapdoorLerping)
+        {
+            trapdoor.transform.rotation = Quaternion.Lerp(trapdoor.transform.rotation, Quaternion.AngleAxis(degrees, new Vector3(0, 0, 1)), Time.deltaTime*2);
+            if(degrees == 0 && trapdoor.transform.rotation.eulerAngles.z > 359)
+            {
+                trapdoor.GetComponentInChildren<BoxCollider>().enabled = true;
+                trapdoor.transform.rotation = Quaternion.AngleAxis(0, new Vector3(0, 0, 0));
+                trapdoorLerping = false;
+            }
+            if (degrees == -90 && trapdoor.transform.rotation.eulerAngles.z < 271)
+            {
+                trapdoor.GetComponentInChildren<BoxCollider>().enabled = false;
+                trapdoor.transform.rotation = Quaternion.AngleAxis(-90, new Vector3(0, 0, 1));
+                trapdoorLerping = false;
             }
         }
     }

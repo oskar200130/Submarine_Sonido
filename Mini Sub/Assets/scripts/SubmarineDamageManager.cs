@@ -37,14 +37,22 @@ public class SubmarineDamageManager : MonoBehaviour
     {
         damage += dmg;
         totalDamage += dmg;
-        while(damage > damageValue && numBrokenPoints < numBreakingPoints)
+        if (!alert)
+        {
+            alert = true;
+            for (int i = 0; i < lights.Length; i++)
+            {
+                lights[i].GetComponent<Light>().color = Color.black;
+            }
+        }
+        while (damage > damageValue && numBrokenPoints < numBreakingPoints)
         {
             damage -= damageValue;
             int rnd = Random.Range(0, numBreakingPoints);
 
             while (isBroken[rnd])
             {
-                rnd = rnd + 1 % numBreakingPoints;
+                rnd = (rnd + 1) % numBreakingPoints;
             }
 
             //breakinPoints.seRompen()
@@ -59,17 +67,25 @@ public class SubmarineDamageManager : MonoBehaviour
         isBroken[id] = false;
         numBrokenPoints--;
         totalDamage -= damageValue;
-        if (!alert && totalDamage > 40)
-        {
-            alert = true;
-            for (int i = 0; i < lights.Length; i++)
-            {
-                lights[i].GetComponent<Light>().color = Color.black;
-            }
-        }
     }
 
     public float getTotalDamg() { return totalDamage; }
+
+    public void TurnOffAlarm()
+    {
+        if (!alert) return;
+        
+        alert = !alert;
+        lightMat.SetColor("_EmissionColor", Color.white);
+        lightMat.color = Color.white;
+        instance.setParameterByName("Damage", 0);
+
+        for (int i = 0; i < lights.Length; i++)
+        {
+            lights[i].GetComponent<Light>().color = Color.white;
+            lights[i].GetComponent<Light>().intensity = 2;
+        }
+    }
 
     // Update is called once per frame
     void Update()
@@ -89,10 +105,9 @@ public class SubmarineDamageManager : MonoBehaviour
             }
             lightMat.color = lerpedColor;
             lightMat.SetColor("_EmissionColor", lerpedColor);
+            
+            instance.setParameterByName("Damage", totalDamage);
         }
-
-        instance.setParameterByName("Damage", totalDamage);
-        instance.setParameterByName("ActDamage", totalDamage);
     }
 
     private void OnDestroy()

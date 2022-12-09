@@ -1,3 +1,4 @@
+using FMODUnity;
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
@@ -31,6 +32,7 @@ public class playerController : MonoBehaviour
         cc = transform.gameObject.GetComponent<CharacterController>();
         swimInstance = FMODUnity.RuntimeManager.CreateInstance(swimEvent);
         walkInstance = FMODUnity.RuntimeManager.CreateInstance(walkEvent);
+        RuntimeManager.AttachInstanceToGameObject(walkInstance, transform);
         walkInstance.start();
     }
     void Update()
@@ -42,9 +44,12 @@ public class playerController : MonoBehaviour
             velocity.y = -2f;
         }
 
-        if (Input.GetButton("Jump") && transform.position.y < waterSurface.position.y && !inSubmarine)
+        if (Input.GetButton("Jump") && !inSubmarine)
         {
-            velocity.y = Mathf.Sqrt(0.5f * -2 * Gravedad);
+            if(transform.position.y < waterSurface.position.y)
+                velocity.y = Mathf.Sqrt(0.5f * -2 * Gravedad);
+            else
+                RuntimeManager.PlayOneShot("event:/Out_Water");
         }
 
         float x = Input.GetAxis("Horizontal");
@@ -71,11 +76,11 @@ public class playerController : MonoBehaviour
         if (tr == null || tr.TriggerType != Trigger.trigger.trampilla)
             return;
 
-        if (transform.position.y + transform.GetComponent<CharacterController>().height / 3 > other.transform.position.y)
+        if (transform.position.y + transform.GetComponent<CharacterController>().height / 5 > other.transform.position.y)
         {
             if (!inSubmarine)
             {
-                FMODUnity.RuntimeManager.PlayOneShot("event:/Out_Water");
+                RuntimeManager.PlayOneShot("event:/Out_Water");
                 swimInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
                 inSubmarine = true;
             }
@@ -84,7 +89,7 @@ public class playerController : MonoBehaviour
         {
             if (inSubmarine)
             {
-                FMODUnity.RuntimeManager.PlayOneShot("event:/Jump_Water");
+                RuntimeManager.PlayOneShot("event:/Jump_Water");
                 swimInstance.start();
                 inSubmarine = false;
             }

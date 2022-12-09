@@ -119,10 +119,10 @@
 	</object>
 	<object class="SoundScatterer" id="{880ca6d6-c7d5-4b54-85e0-cb7bdaa3a275}">
 		<property name="length">
-			<value>18.199999999999999</value>
+			<value>18</value>
 		</property>
 		<property name="volume">
-			<value>-14.5</value>
+			<value>-18.5</value>
 		</property>
 		<property name="polyphony">
 			<value>1</value>
@@ -138,6 +138,12 @@
 		</property>
 		<property name="maximumScatterDistance">
 			<value>0</value>
+		</property>
+		<property name="volumeRandomization">
+			<value>-10</value>
+		</property>
+		<property name="pitchRandomization">
+			<value>1</value>
 		</property>
 		<relationship name="sound">
 			<destination>{310112a4-6382-46cb-9510-14f3e165f404}</destination>

@@ -126,10 +126,10 @@
 			<value>30</value>
 		</property>
 		<property name="minimumScatterDistance">
-			<value>4</value>
+			<value>700</value>
 		</property>
 		<property name="maximumScatterDistance">
-			<value>8.40000057</value>
+			<value>4200</value>
 		</property>
 		<relationship name="sound">
 			<destination>{bdd39f3c-907c-4631-a4ca-3741479ee797}</destination>
