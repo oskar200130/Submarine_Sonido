@@ -11,8 +11,8 @@ public class playerSubmarine : MonoBehaviour
 
     private Trigger trigger;
     private bool trapdoorLerping = false;
-    private int degrees = 0;
-
+    private int degrees = -1;
+    private bool checkStay = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -36,7 +36,7 @@ public class playerSubmarine : MonoBehaviour
 
     private void Update()
     {
-        if (trigger != null && !trapdoorLerping && Input.GetKeyDown(KeyCode.L))
+        if (trigger != null && Input.GetMouseButtonDown(0) && !submarine.GetComponent<SubmarineDamageManager>().isAlert())
         {
             switch (trigger.TriggerType)
             {
@@ -44,31 +44,38 @@ public class playerSubmarine : MonoBehaviour
                     changeSittin();
                     break;
                 case Trigger.trigger.trampilla:
+                    if (trapdoorLerping) break;
+                    
                     FMODUnity.RuntimeManager.PlayOneShot("event:/Trapdoor");
-                    if (trapdoor.transform.rotation.z == 0)                    
+                    if (trapdoor.transform.localEulerAngles.z > -0.1 && trapdoor.transform.localEulerAngles.z < 0.1)                    
                         degrees = -90;                                        
                     else                    
-                        degrees = 0;
+                        degrees = 360;
                     
                     trapdoorLerping = true;
                     break;
             }
         }
+        if (trigger != null && Input.GetMouseButtonDown(1))
+        {
+            if (trigger.TriggerType == Trigger.trigger.reparacion)
+            {
+                trigger.transform.GetComponentInParent<BreakPoint>().gotReapered();
+                submarine.GetComponent<SubmarineDamageManager>().breakingPointRepaired(trigger.transform.parent.gameObject);
+                checkStay = true;
+                trigger = null;
+            }
+        }
 
         if (trapdoorLerping)
         {
-            trapdoor.transform.rotation = Quaternion.Lerp(trapdoor.transform.rotation, Quaternion.AngleAxis(degrees, new Vector3(0, 0, 1)), Time.deltaTime*2);
-            if(degrees == 0 && trapdoor.transform.rotation.eulerAngles.z > 359)
+            trapdoor.transform.localEulerAngles = Vector3.Lerp(trapdoor.transform.localEulerAngles, new Vector3(0, 0, degrees), Time.deltaTime);
+            if (degrees != -1 && (trapdoor.transform.localEulerAngles.z < 270.5 || trapdoor.transform.localEulerAngles.z > 359.5))
             {
-                trapdoor.GetComponentInChildren<BoxCollider>().enabled = true;
-                trapdoor.transform.rotation = Quaternion.AngleAxis(0, new Vector3(0, 0, 0));
+                trapdoor.GetComponentInChildren<BoxCollider>().enabled = !trapdoor.GetComponentInChildren<BoxCollider>().enabled;
+                trapdoor.transform.localEulerAngles = new Vector3(0, 0, degrees);
                 trapdoorLerping = false;
-            }
-            if (degrees == -90 && trapdoor.transform.rotation.eulerAngles.z < 271)
-            {
-                trapdoor.GetComponentInChildren<BoxCollider>().enabled = false;
-                trapdoor.transform.rotation = Quaternion.AngleAxis(-90, new Vector3(0, 0, 1));
-                trapdoorLerping = false;
+                degrees = -1;
             }
         }
     }
@@ -79,6 +86,18 @@ public class playerSubmarine : MonoBehaviour
         if (other.GetComponent<Trigger>() != null)
         {
             trigger = other.GetComponent<Trigger>();
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (checkStay)
+        {
+            if (other.GetComponent<Trigger>() != null)
+            {
+                trigger = other.GetComponent<Trigger>();
+            }
+            checkStay = false;
         }
     }
 

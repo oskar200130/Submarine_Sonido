@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Trigger : MonoBehaviour
 {
-    public enum trigger{volante, trampilla }
+    public enum trigger{volante, trampilla, reparacion }
 
     public trigger TriggerType;
     // Start is called before the first frame update

@@ -74,6 +74,9 @@
 		</relationship>
 	</object>
 	<object class="EventMixerMaster" id="{f52f3a76-2b40-4ae1-a94d-9e7218860ff3}">
+		<relationship name="modulators">
+			<destination>{39e21c3b-48c4-47a5-ba58-78fabefbbb83}</destination>
+		</relationship>
 		<relationship name="effectChain">
 			<destination>{673508aa-3c41-468e-90c8-6c09566168ec}</destination>
 		</relationship>
@@ -134,8 +137,17 @@
 			<destination>{f52f3a76-2b40-4ae1-a94d-9e7218860ff3}</destination>
 		</relationship>
 	</object>
+	<object class="RandomizerModulator" id="{39e21c3b-48c4-47a5-ba58-78fabefbbb83}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>volume</value>
+		</property>
+		<property name="amount">
+			<value>17</value>
+		</property>
+	</object>
 	<object class="MixerBusEffectChain" id="{673508aa-3c41-468e-90c8-6c09566168ec}">
 		<relationship name="effects">
+			<destination>{9f380218-9ffe-4b9f-8e1c-a3136ecbd20d}</destination>
 			<destination>{e788e404-5104-4db1-a21c-8b1988425453}</destination>
 		</relationship>
 	</object>
@@ -191,6 +203,20 @@
 		</relationship>
 	</object>
 	<object class="MixerBusPanner" id="{4e1e875c-e764-4e5b-bfba-41408c67f002}" />
+	<object class="MixerSend" id="{9f380218-9ffe-4b9f-8e1c-a3136ecbd20d}">
+		<property name="level">
+			<value>-5.5</value>
+		</property>
+		<property name="inputFormat">
+			<value>1</value>
+		</property>
+		<relationship name="modulators">
+			<destination>{87a9ef88-d65f-4dc4-94f6-554fe5e2833b}</destination>
+		</relationship>
+		<relationship name="mixerReturn">
+			<destination>{0d036922-290c-4ab5-a10f-13aed65ed6b9}</destination>
+		</relationship>
+	</object>
 	<object class="MixerBusFader" id="{e788e404-5104-4db1-a21c-8b1988425453}" />
 	<object class="AutomationPoint" id="{fb4024da-fd66-4dc2-9903-e3f0b0b1a865}">
 		<property name="position">
@@ -250,4 +276,12 @@
 		</property>
 	</object>
 	<object class="MixerBusFader" id="{6f3731fd-eebf-4c40-9e0e-978fb3f46be8}" />
+	<object class="RandomizerModulator" id="{87a9ef88-d65f-4dc4-94f6-554fe5e2833b}">
+		<property name="nameOfPropertyBeingModulated">
+			<value>level</value>
+		</property>
+		<property name="amount">
+			<value>12.5</value>
+		</property>
+	</object>
 </objects>

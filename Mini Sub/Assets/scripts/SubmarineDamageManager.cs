@@ -5,12 +5,12 @@ using UnityEngine;
 
 public class SubmarineDamageManager : MonoBehaviour
 {
-    public GameObject[] breakingPoints;
+    public BreakPoint[] breakingPoints;
     private bool[] isBroken;
     private float damage;
     private int numBreakingPoints;
     private int numBrokenPoints;
-    [SerializeField][Range(0f, 100f)] float totalDamage;
+    [SerializeField] [Range(0f, 100f)] float totalDamage;
     public const int damageValue = 10;
 
     //Luces de alarma
@@ -18,8 +18,10 @@ public class SubmarineDamageManager : MonoBehaviour
     public Material lightMat;
     private bool alert = false;
 
+    public bool isAlert() { return alert; }
+
     private FMOD.Studio.EventInstance instance;
-    public FMODUnity.EventReference fmodEvent;
+    public EventReference fmodEvent;
 
     // Start is called before the first frame update
     void Start()
@@ -45,7 +47,7 @@ public class SubmarineDamageManager : MonoBehaviour
                 lights[i].GetComponent<Light>().color = Color.black;
             }
         }
-        while (damage > damageValue && numBrokenPoints < numBreakingPoints)
+        while (damage >= damageValue && numBrokenPoints < numBreakingPoints)
         {
             damage -= damageValue;
             int rnd = Random.Range(0, numBreakingPoints);
@@ -55,15 +57,20 @@ public class SubmarineDamageManager : MonoBehaviour
                 rnd = (rnd + 1) % numBreakingPoints;
             }
 
-            //breakinPoints.seRompen()
+            breakingPoints[rnd].gotBroken(totalDamage);
             isBroken[rnd] = true;
             numBrokenPoints++;
         }
       
     }
 
-    public void breakingPointRepaired(int id)
+    public void breakingPointRepaired(GameObject go)
     {
+        int id = 0;
+        while(go != breakingPoints[id].transform.gameObject)
+        {
+            id++;
+        }
         isBroken[id] = false;
         numBrokenPoints--;
         totalDamage -= damageValue;
@@ -90,11 +97,6 @@ public class SubmarineDamageManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.G))        //QUITAR TODO IMPUT CON G(SOLO PARA DEBUG)
-        {
-            alert = !alert;
-            totalDamage = 50;
-        }
         if(alert)
         {
             Color lerpedColor = Color.Lerp(Color.black, Color.red, Mathf.PingPong(Time.time, 1));
