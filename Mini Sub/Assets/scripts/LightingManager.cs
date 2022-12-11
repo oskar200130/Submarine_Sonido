@@ -6,6 +6,9 @@ public class LightingManager : MonoBehaviour
     //Scene References
     [SerializeField] private Light DirectionalLight;
     [SerializeField] private LightingPreset Preset;
+
+    public GameObject whales;
+    private float whHour = -1;
     //Variables
     [SerializeField, Range(0, 24)] private float TimeOfDay;
 
@@ -18,9 +21,20 @@ public class LightingManager : MonoBehaviour
         if (Application.isPlaying)
         {
             //(Replace with a reference to the game time)
-            TimeOfDay += Time.deltaTime/3;
+            TimeOfDay += Time.deltaTime / 3;
             TimeOfDay %= 24; //Modulus to ensure always between 0-24
             UpdateLighting(TimeOfDay / 24f);
+            if (whHour == -1 && TimeOfDay > 11 && TimeOfDay < 12)
+            {
+                whales.SetActive(false);
+                whHour = Random.Range(0.0f, 10.0f);
+                whHour = (whHour + 19) % 24;
+            }
+            if (TimeOfDay > whHour - 0.1 && TimeOfDay < whHour + 0.1)
+            {
+                whales.SetActive(true);
+                whHour = -1;
+            }
         }
         else
         {

@@ -22,16 +22,16 @@ public class playerController : MonoBehaviour
     public Transform waterSurface;
 
     private FMOD.Studio.EventInstance swimInstance;
-    public FMODUnity.EventReference swimEvent;
+    public EventReference swimEvent;
 
     private FMOD.Studio.EventInstance walkInstance;
-    public FMODUnity.EventReference walkEvent;
+    public EventReference walkEvent;
 
     private void Start()
     {
         cc = transform.gameObject.GetComponent<CharacterController>();
-        swimInstance = FMODUnity.RuntimeManager.CreateInstance(swimEvent);
-        walkInstance = FMODUnity.RuntimeManager.CreateInstance(walkEvent);
+        swimInstance = RuntimeManager.CreateInstance(swimEvent);
+        walkInstance = RuntimeManager.CreateInstance(walkEvent);
         RuntimeManager.AttachInstanceToGameObject(walkInstance, transform);
         walkInstance.start();
     }
@@ -46,7 +46,7 @@ public class playerController : MonoBehaviour
 
         if (Input.GetButton("Jump") && !inSubmarine)
         {
-            if(transform.position.y < waterSurface.position.y)
+            if (transform.position.y < waterSurface.position.y)
                 velocity.y = Mathf.Sqrt(0.5f * -2 * Gravedad);
             else
                 RuntimeManager.PlayOneShot("event:/Out_Water");
@@ -58,15 +58,19 @@ public class playerController : MonoBehaviour
         Vector3 move = transform.right * x + transform.forward * z;
         cc.Move(move * Velocidad * Time.deltaTime);
 
-        if (inSubmarine && isGrounded && (x != 0 || z != 0))
-            walkInstance.setParameterByName("Walk", 1);
+        if (x != 0 || z != 0)
+            if (inSubmarine && isGrounded)
+                walkInstance.setParameterByName("Walk", 1);
+            else
+                swimInstance.setParameterByName("Walk", 1);
         else
+        {
             walkInstance.setParameterByName("Walk", 0);
+            swimInstance.setParameterByName("Walk", 0);
+        }
 
         velocity.y += Gravedad * Time.deltaTime;
         cc.Move(velocity * Time.deltaTime);
-
-        swimInstance.setParameterByName("whales", lM.getTimeOfDay());
     }
 
     private void OnTriggerStay(Collider other)

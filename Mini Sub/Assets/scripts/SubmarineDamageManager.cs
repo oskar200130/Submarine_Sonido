@@ -60,8 +60,7 @@ public class SubmarineDamageManager : MonoBehaviour
             breakingPoints[rnd].gotBroken(totalDamage);
             isBroken[rnd] = true;
             numBrokenPoints++;
-        }
-      
+        }      
     }
 
     public void breakingPointRepaired(GameObject go)

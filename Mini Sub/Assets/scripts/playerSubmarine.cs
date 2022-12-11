@@ -60,6 +60,7 @@ public class playerSubmarine : MonoBehaviour
         {
             if (trigger.TriggerType == Trigger.trigger.reparacion)
             {
+                FMODUnity.RuntimeManager.PlayOneShot("event:/Repair");
                 trigger.transform.GetComponentInParent<BreakPoint>().gotReapered();
                 submarine.GetComponent<SubmarineDamageManager>().breakingPointRepaired(trigger.transform.parent.gameObject);
                 checkStay = true;
